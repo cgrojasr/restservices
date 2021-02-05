@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="dbdemocr" Class="dbDemoDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-FPN37F7\SQLEXPRESS;Initial Catalog=dbdemocr;Persist Security Info=True;User ID=sa" SettingsObjectName="CR.Demo.BL.Properties.Settings" SettingsPropertyName="dbdemocrConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.alumno" Member="alumnos">
+    <Type Name="alumno">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="apellido" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="edad" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="alumno_inscripcion" Member="inscripcions" ThisKey="id" OtherKey="idalumno" Type="inscripcion" />
+    </Type>
+  </Table>
+  <Table Name="dbo.inscripcion" Member="inscripcions">
+    <Type Name="inscripcion">
+      <Column Name="idalumno" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="idcurso" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="alumno_inscripcion" Member="alumno" ThisKey="idalumno" OtherKey="id" Type="alumno" IsForeignKey="true" />
+      <Association Name="curso_inscripcion" Member="curso" ThisKey="idcurso" OtherKey="id" Type="curso" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.curso" Member="cursos">
+    <Type Name="curso">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="curso_inscripcion" Member="inscripcions" ThisKey="id" OtherKey="idcurso" Type="inscripcion" />
+    </Type>
+  </Table>
+</Database>
